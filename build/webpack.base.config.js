@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.ts',
+    entry: './src/webgl/webgl.ts',
     output: {
         filename: 'app.js'
     },
@@ -16,12 +16,16 @@ module.exports = {
                     loader: 'ts-loader'
                 }],
                 exclude: /node_modules/
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
             }
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/template/index.html'
+            template: './src/template/webgl.html'
         })
     ]
 

@@ -1,0 +1,7 @@
+.text-range {
+    display: flex;
+}
+
+.text-label {
+    flex: 0 0 100px;
+}
