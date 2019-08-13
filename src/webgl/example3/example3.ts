@@ -13,7 +13,7 @@ export default function () {
     gl.clear(gl.COLOR_BUFFER_BIT);
     let util = new Util(gl);
     let program = util.initProgram(vertexShader, fragmentShader) as WebGLProgram;
-    gl.disable(gl.CULL_FACE);
+    // gl.disable(gl.CULL_FACE);
     gl.useProgram(program);
 
     let posBuffer = gl.createBuffer();
@@ -38,7 +38,13 @@ export default function () {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
     let u_matrix = gl.getUniformLocation(program, 'u_matrix');
-    let uMatrix = util.orthographic(0, canvas.width, canvas.height, 0, -200, 200);
+    let uMatrix = util.orthographic(0, canvas.width * 2, canvas.height * 2, 0, -1000, 1000);
+    let translation = util.translation(500, 50, 0);
+    let xRotateMat = util.xRotation(60 * Math.PI / 180);
+    let yRotateMat = util.yRotation(60 * Math.PI / 180);
+    uMatrix = util.multiply(uMatrix, translation);
+    uMatrix = util.multiply(uMatrix, xRotateMat);
+    uMatrix = util.multiply(uMatrix, yRotateMat);
     gl.uniformMatrix4fv(u_matrix, false, uMatrix);
 
 
@@ -46,6 +52,6 @@ export default function () {
     image.src = '../../assets/test.jpg';
     image.onload = function () {
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
-        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        gl.drawArrays(gl.TRIANGLES, 0, 36);
     }
 }
