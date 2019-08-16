@@ -30,6 +30,15 @@ const points = new Float32Array([
     400, 150, 0, 1,
 ]);
 
+// const points = new Float32Array([
+//     0, 0, 0,
+//     1, 0, 0,
+//     1, 1, 0,
+//     -0.5, -0.5, -0.5,
+//     1.2, 0.2, -0.5,
+//     1.2, 1.2, -0.5
+// ]);
+
 
 const colors = new Float32Array([
     1.0, 1.0, 0.0, 1.0,
@@ -66,8 +75,7 @@ export default function () {
     gl.vertexAttribPointer(a_color, 4, gl.FLOAT, false, 0, 0);
     
     let u_matrix = gl.getUniformLocation(program, 'u_matrix');
-    let uMat = util.orthographic(0, canvas.width, canvas.height, 0, 100, -100);
+    let uMat = util.orthographic(0, canvas.width, canvas.height, 0, 0, -100);
     gl.uniformMatrix4fv(u_matrix, false, uMat);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
-
 }
