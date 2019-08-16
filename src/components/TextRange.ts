@@ -1,6 +1,7 @@
 import util from '../util';
 import './TextRange.css';
 
+type OnChange = (value: number) => void;
 const dom: any = util.dom;
 export default class TextRange {
     constructor(name: string, min:number, max:number, step:number, defaultValue?:number, onchange?: Function) {
@@ -21,7 +22,7 @@ export default class TextRange {
     private name: string;
     private defaultValue: number | undefined;
     public ref: HTMLElement;
-    public onchange: Function | undefined;
+    public onchange: OnChange | undefined;
     public value:number;
 
     render(): HTMLElement {
@@ -49,7 +50,7 @@ export default class TextRange {
         range.oninput = function () {
             displayNumber.textContent = range.value;
             that.value = +range.value;
-            that.onchange && that.onchange(range.value);
+            that.onchange && that.onchange(+range.value);
         }
 
         doc.appendChild(label);
